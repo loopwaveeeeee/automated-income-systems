@@ -1,8 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-// robust root directory: prefer __dirname, fallback to process.cwd()
-const _ROOT = (typeof __dirname !== 'undefined') ? __dirname : (process && process.cwd ? process.cwd() : '.');
+const ROOT_DIR = (typeof __dirname !== 'undefined') ? __dirname : (typeof process !== 'undefined' && process.cwd ? process.cwd() : '.');
 
 class TradingBot {
     constructor() {
@@ -184,7 +183,7 @@ class TradingBot {
 
     loadPortfolio() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'trading_portfolio.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'trading_portfolio.json');
             if (fs.existsSync(dataPath)) {
                 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
                 this.portfolio = { ...this.portfolio, ...data };
@@ -196,7 +195,7 @@ class TradingBot {
 
     savePortfolio() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'trading_portfolio.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'trading_portfolio.json');
             fs.writeFileSync(dataPath, JSON.stringify(this.portfolio, null, 2));
         } catch (error) {
             console.error('❌ Could not save trading portfolio data');

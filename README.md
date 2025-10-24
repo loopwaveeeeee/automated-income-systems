@@ -56,6 +56,45 @@ npm start
 5. **Access the dashboard**
 Open http://localhost:3000/dashboard in your browser
 
+### Two‑click start, smoke-test & firewall helper
+
+If you want a quick way to start everything with two clicks (or run a local smoke-test), the repo includes helpers:
+
+- `run.bat` — Windows batch file. Double-click to run setup, start the server in the background and open the dashboard.
+- `start.ps1` — PowerShell starter. Double-click or run from PowerShell to run setup, start the server in a new window and open the dashboard.
+- `scripts/smoke-test.js` — A small Node script that queries `/api/status` and `/api/performance` to verify endpoints.
+- `scripts/add-firewall-rule.ps1` — (Admin) PowerShell script to add an inbound firewall rule for the app port.
+
+Usage examples:
+
+Command Prompt / double-click `run.bat`:
+```bat
+run.bat
+```
+
+PowerShell (double-click or run):
+```powershell
+.\start.ps1
+```
+
+Run the smoke test from the project root:
+```bash
+npm run smoke
+```
+
+If your browser cannot reach the app because of firewall or proxy restrictions, follow the instructions in `FIREWALL-INSTRUCTIONS.md` and run the included admin script:
+
+```powershell
+# In an elevated PowerShell (Run as Administrator)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\scripts\add-firewall-rule.ps1 -Port 3000 -RuleName "AutomatedIncomeSystems-3000"
+```
+
+Notes:
+- Make sure `node` is on your PATH. If `node` is not found, open a terminal where Node is available or update the starter scripts with the full Node executable path.
+- To run the server on a different port, set the `PORT` environment variable before starting, e.g. `set PORT=8080` (cmd) or `$env:PORT=8080` (PowerShell).
+
+
 ## ⚙️ Configuration
 
 ### Required API Keys

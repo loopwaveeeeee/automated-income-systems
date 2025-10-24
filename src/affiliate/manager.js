@@ -1,7 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-// robust root directory: prefer __dirname, fallback to process.cwd()
-const _ROOT = (typeof __dirname !== 'undefined') ? __dirname : (process && process.cwd ? process.cwd() : '.');
 
 class AffiliateManager {
     constructor() {
@@ -166,7 +164,7 @@ class AffiliateManager {
 
     loadData() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'affiliate_data.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'affiliate_data.json');
             if (fs.existsSync(dataPath)) {
                 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
                 this.products = data.products || [];
@@ -179,7 +177,7 @@ class AffiliateManager {
 
     saveData() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'affiliate_data.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'affiliate_data.json');
             const data = {
                 products: this.products,
                 revenue: this.revenue

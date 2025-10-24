@@ -1,7 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-// robust root directory: prefer __dirname, fallback to process.cwd()
-const _ROOT = (typeof __dirname !== 'undefined') ? __dirname : (process && process.cwd ? process.cwd() : '.');
 
 class DividendTracker {
     constructor() {
@@ -183,7 +181,7 @@ class DividendTracker {
 
     loadData() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'dividend_data.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'dividend_data.json');
             if (fs.existsSync(dataPath)) {
                 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
                 this.stocks = data.stocks || [];
@@ -196,7 +194,7 @@ class DividendTracker {
 
     saveData() {
         try {
-            const dataPath = path.join(_ROOT, '..', '..', 'data', 'dividend_data.json');
+            const dataPath = path.join(ROOT_DIR, '..', '..', 'data', 'dividend_data.json');
             const data = {
                 stocks: this.stocks,
                 dividends: this.dividends

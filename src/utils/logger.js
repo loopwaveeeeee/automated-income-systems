@@ -1,10 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// robust root directory: prefer __dirname, fallback to process.cwd()
-const _ROOT = (typeof __dirname !== 'undefined') ? __dirname : (process && process.cwd ? process.cwd() : '.');
+const ROOT_DIR = (typeof __dirname !== 'undefined') ? __dirname : (typeof process !== 'undefined' && process.cwd ? process.cwd() : '.');
 
-const logsDir = path.join(_ROOT, '..', '..', 'logs');
+const logsDir = path.join(ROOT_DIR, '..', '..', 'logs');
 try { fs.mkdirSync(logsDir, { recursive: true }); } catch (e) {}
 
 function timestamp() {

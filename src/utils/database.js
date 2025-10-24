@@ -1,10 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// robust root directory: prefer __dirname, fallback to process.cwd()
-const _ROOT = (typeof __dirname !== 'undefined') ? __dirname : (process && process.cwd ? process.cwd() : '.');
+const ROOT_DIR = (typeof __dirname !== 'undefined') ? __dirname : (typeof process !== 'undefined' && process.cwd ? process.cwd() : '.');
 
-const dataDir = path.join(_ROOT, '..', '..', 'data');
+const dataDir = path.join(ROOT_DIR, '..', '..', 'data');
 try { fs.mkdirSync(dataDir, { recursive: true }); } catch (e) {}
 
 const dbFile = path.join(dataDir, 'db.json');
