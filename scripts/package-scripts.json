@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "setup": "node scripts/setup.js",
+    "trading-bot": "node src/trading/bot.js",
+    "affiliate-manager": "node src/affiliate/manager.js",
+    "dropship-monitor": "node src/dropshipping/monitor.js",
+    "dividend-tracker": "node src/dividend/tracker.js",
+    "dashboard": "node src/dashboard/server.js",
+    "install-deps": "npm install && npm run setup",
+    "production": "NODE_ENV=production node src/app.js"
+  }
+}

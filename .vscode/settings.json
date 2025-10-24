@@ -1,0 +1,6 @@
+{
+	"json.schemaDownload.enable": false,
+	"http.proxy": "",
+	"http.proxyStrictSSL": false,
+	"editor.defaultFormatter": "GitHub.copilot"
+}

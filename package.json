@@ -1,0 +1,19 @@
+{
+  "name": "automated-income-systems",
+  "version": "1.0.0",
+  "description": "Automated passive income systems: trading, affiliate, dropshipping, dividend tracking",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest",
+    "setup": "node scripts/setup.js",
+    "smoke": "node scripts/smoke-test.js",
+    "trading-bot": "node src/trading/bot.js",
+    "affiliate-manager": "node src/affiliate/manager.js",
+    "dropship-monitor": "node src/dropshipping/monitor.js",
+    "dividend-tracker": "node src/dividend/tracker.js"
+  },
+  "author": "",
+  "license": "MIT"
+}

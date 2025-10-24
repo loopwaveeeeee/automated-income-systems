@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Income Systems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 100px 0 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .feature-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .stats-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .how-it-works {
+            background: white;
+            padding: 80px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            background: #f8f9fa;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Automated Income Systems</h1>
+            <p>Generate passive income from multiple revenue streams automatically</p>
+            <a href="/dashboard" class="cta-button">Launch Dashboard</a>
+        </div>
+
+        <div class="stats-section">
+            <h2>Live System Performance</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalValue">$0</div>
+                    <div class="stat-description">Total Portfolio Value</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="dailyRevenue">$0</div>
+                    <div class="stat-description">Daily Revenue</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="activeSystems">0/4</div>
+                    <div class="stat-description">Active Systems</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="monthlyProgress">0%</div>
+                    <div class="stat-description">Monthly Target</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Crypto Trading Bot</h3>
+                <p>Automated cryptocurrency trading with advanced technical analysis, risk management, and position sizing.</p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="trading-trades">0</div>
+                        <div class="stat-label">Trades</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="trading-success">0%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="trading-portfolio">$0</div>
+                        <div class="stat-label">Portfolio</div>
+                    </div>
+                </div>
+                <button id="trading-toggle" class="cta-button" style="margin-top: 20px; padding: 10px 20px; font-size: 0.9rem;">Start Trading Bot</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💼</div>
+                <h3>Affiliate Marketing</h3>
+                <p>Discover trending products, monitor prices, and optimize affiliate campaigns for maximum commissions.</p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="affiliate-products">0</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="affiliate-conversion">0%</div>
+                        <div class="stat-label">Conversion</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="affiliate-revenue">$0</div>
+                        <div class="stat-label">Revenue</div>
+                    </div>
+                </div>
+                <button id="affiliate-toggle" class="cta-button" style="margin-top: 20px; padding: 10px 20px; font-size: 0.9rem;">Start Affiliate Manager</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <h3>Dropshipping Automation</h3>
+                <p>Source trending products, auto-list to stores, and handle order fulfillment completely automatically.</p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="dropshipping-products">0</div>
+                        <div class="stat-label">Listed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="dropshipping-orders">0</div>
+                        <div class="stat-label">Orders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="dropshipping-margin">0%</div>
+                        <div class="stat-label">Margin</div>
+                    </div>
+                </div>
+                <button id="dropshipping-toggle" class="cta-button" style="margin-top: 20px; padding: 10px 20px; font-size: 0.9rem;">Start Dropshipping Monitor</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Dividend Tracker</h3>
+                <p>Analyze high-yield dividend stocks, track payments, and optimize your dividend income portfolio.</p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="dividend-stocks">0</div>
+                        <div class="stat-label">Stocks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="dividend-yield">0%</div>
+                        <div class="stat-label">Avg Yield</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="dividend-income">$0</div>
+                        <div class="stat-label">Monthly</div>
+                    </div>
+                </div>
+                <button id="dividend-toggle" class="cta-button" style="margin-top: 20px; padding: 10px 20px; font-size: 0.9rem;">Start Dividend Tracker</button>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Setup & Configure</h3>
+                    <p>Add your API keys, set risk parameters, and configure your preferred strategies for each income stream.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Automated Discovery</h3>
+                    <p>Our systems automatically find trading opportunities, trending products, and high-yield investments.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Execute & Monitor</h3>
+                    <p>Trades are executed, products are listed, and dividends are tracked - all automatically with real-time monitoring.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Optimize & Scale</h3>
+                    <p>Performance analytics provide insights to optimize strategies and scale successful income streams.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>&copy; 2025 Automated Income Systems. Built for passive income generation.</p>
+            <p>⚠️ Trading involves risk. Never invest more than you can afford to lose.</p>
+        </div>
+    </div>
+
+    <script>
+        // Load and display real-time stats
+        async function loadStats() {
+            try {
+                const [status, performance, incomeStreams] = await Promise.all([
+                    fetch('/api/status').then(r => r.json()),
+                    fetch('/api/performance').then(r => r.json()),
+                    fetch('/api/income-streams').then(r => r.json())
+                ]);
+
+                // Update overall stats
+                document.getElementById('totalValue').textContent = `$${performance.totalValue || 0}`;
+                document.getElementById('dailyRevenue').textContent = `$${performance.dailyRevenue || 0}`;
+                document.getElementById('activeSystems').textContent = `${performance.activeSystems || 0}/4`;
+                document.getElementById('monthlyProgress').textContent = `${performance.monthlyProgress || 0}%`;
+
+                // Update individual system stats
+                incomeStreams.forEach(stream => {
+                    updateSystemStats(stream.type, stream.data);
+                });
+
+                // Update trading bot button
+                updateTradingButton(status.systems.trading);
+                updateAffiliateButton(status.systems.affiliate);
+                updateDropshippingButton(status.systems.dropshipping);
+                updateDividendButton(status.systems.dividend);
+
+            } catch (error) {
+                console.log('Loading demo data...');
+                loadDemoData();
+            }
+        }
+
+        function updateAffiliateButton(isRunning) {
+            const button = document.getElementById('affiliate-toggle');
+            if (isRunning) {
+                button.textContent = 'Stop Affiliate Manager';
+                button.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+            } else {
+                button.textContent = 'Start Affiliate Manager';
+                button.style.background = 'linear-gradient(45deg, #2ed573, #1e90ff)';
+            }
+        }
+
+        async function toggleAffiliateManager() {
+            const button = document.getElementById('affiliate-toggle');
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('/api/systems/affiliate/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                updateAffiliateButton(result.running);
+                loadStats(); // Refresh stats
+            } catch (error) {
+                console.error('Error toggling affiliate manager:', error);
+                button.textContent = 'Error - Try Again';
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function updateDropshippingButton(isRunning) {
+            const button = document.getElementById('dropshipping-toggle');
+            if (isRunning) {
+                button.textContent = 'Stop Dropshipping Monitor';
+                button.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+            } else {
+                button.textContent = 'Start Dropshipping Monitor';
+                button.style.background = 'linear-gradient(45deg, #2ed573, #1e90ff)';
+            }
+        }
+
+        async function toggleDropshippingMonitor() {
+            const button = document.getElementById('dropshipping-toggle');
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('/api/systems/dropshipping/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                updateDropshippingButton(result.running);
+                loadStats(); // Refresh stats
+            } catch (error) {
+                console.error('Error toggling dropshipping monitor:', error);
+                button.textContent = 'Error - Try Again';
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function updateDividendButton(isRunning) {
+            const button = document.getElementById('dividend-toggle');
+            if (isRunning) {
+                button.textContent = 'Stop Dividend Tracker';
+                button.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+            } else {
+                button.textContent = 'Start Dividend Tracker';
+                button.style.background = 'linear-gradient(45deg, #2ed573, #1e90ff)';
+            }
+        }
+
+        async function toggleDividendTracker() {
+            const button = document.getElementById('dividend-toggle');
+            button.disabled = true;
+            button.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('/api/systems/dividend/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                updateDividendButton(result.running);
+                loadStats(); // Refresh stats
+            } catch (error) {
+                console.error('Error toggling dividend tracker:', error);
+                button.textContent = 'Error - Try Again';
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function updateSystemStats(systemType, data) {
+            const prefix = systemType.toLowerCase();
+            
+            Object.entries(data).forEach(([key, value]) => {
+                const element = document.getElementById(`${prefix}-${key}`);
+                if (element) {
+                    if (typeof value === 'number') {
+                        if (key.includes('revenue') || key.includes('profit') || key.includes('income') || key.includes('portfolio')) {
+                            element.textContent = `$${value.toFixed(0)}`;
+                        } else if (key.includes('rate') || key.includes('yield') || key.includes('margin') || key.includes('conversion') || key.includes('success')) {
+                            element.textContent = `${value.toFixed(1)}%`;
+                        } else {
+                            element.textContent = value.toString();
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadDemoData() {
+            // Demo data for when API is not available
+            document.getElementById('totalValue').textContent = '$12,450';
+            document.getElementById('dailyRevenue').textContent = '$287';
+            document.getElementById('activeSystems').textContent = '3/4';
+            document.getElementById('monthlyProgress').textContent = '73%';
+
+            // Trading stats
+            document.getElementById('trading-trades').textContent = '142';
+            document.getElementById('trading-success').textContent = '68.3%';
+            document.getElementById('trading-portfolio').textContent = '$5,230';
+
+            // Affiliate stats
+            document.getElementById('affiliate-products').textContent = '89';
+            document.getElementById('affiliate-conversion').textContent = '3.2%';
+            document.getElementById('affiliate-revenue').textContent = '$1,890';
+
+            // Dropshipping stats
+            document.getElementById('dropshipping-products').textContent = '23';
+            document.getElementById('dropshipping-orders').textContent = '156';
+            document.getElementById('dropshipping-margin').textContent = '38.5%';
+
+            // Dividend stats
+            document.getElementById('dividend-stocks').textContent = '15';
+            document.getElementById('dividend-yield').textContent = '4.7%';
+            document.getElementById('dividend-income').textContent = '$190';
+        }
+
+        // Load stats on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+
+            // Add event listeners for system toggles
+            document.getElementById('trading-toggle').addEventListener('click', toggleTradingBot);
+            document.getElementById('affiliate-toggle').addEventListener('click', toggleAffiliateManager);
+            document.getElementById('dropshipping-toggle').addEventListener('click', toggleDropshippingMonitor);
+            document.getElementById('dividend-toggle').addEventListener('click', toggleDividendTracker);
+        });
+
+        // Refresh stats every 30 seconds
+        setInterval(loadStats, 30000);
+    </script>
+</body>
+</html>
