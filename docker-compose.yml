@@ -1,0 +1,9 @@
+services:
+  automated-income-systems:
+    build: .
+    container_name: automated-income-systems
+    ports:
+      - "4004:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
