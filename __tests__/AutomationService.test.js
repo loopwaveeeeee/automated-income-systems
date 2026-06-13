@@ -95,7 +95,35 @@ describe('AutomationService', () => {
     await AutomationService.runSetupSequence((step, current, total) => {
       steps.push(step);
     });
-    
+
     expect(steps.length).toBe(SETUP_SEQUENCE.length);
+  });
+
+  test('should remove income source', () => {
+    const source = {
+      name: 'Test Source',
+      type: 'Passives Einkommen',
+      amount: 1000,
+      investment: 500,
+      profitability: 100,
+    };
+
+    AutomationService.addIncomeSource(source);
+    const sources = AutomationService.getIncomeSources();
+    expect(sources.length).toBe(1);
+
+    const id = sources[0].id;
+    AutomationService.removeIncomeSource(id);
+    const updatedSources = AutomationService.getIncomeSources();
+    expect(updatedSources.length).toBe(0);
+  });
+
+  test('should cleanup timer on cleanup()', () => {
+    AutomationService.startAutomation();
+    expect(AutomationService.getStatus().isRunning).toBe(true);
+
+    AutomationService.cleanup();
+    expect(AutomationService.getStatus().isRunning).toBe(false);
+    expect(AutomationService.optimizationTimer).toBeNull();
   });
 });

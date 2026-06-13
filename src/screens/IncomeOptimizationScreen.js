@@ -25,6 +25,10 @@ const IncomeOptimizationScreen = ({navigation}) => {
 
   useEffect(() => {
     loadIncomeSources();
+
+    return () => {
+      AutomationService.cleanup();
+    };
   }, []);
 
   const loadIncomeSources = () => {
@@ -59,12 +63,33 @@ const IncomeOptimizationScreen = ({navigation}) => {
     loadIncomeSources();
   };
 
+  const deleteIncomeSource = id => {
+    Alert.alert(
+      'Quelle löschen',
+      'Sind Sie sicher, dass Sie diese Einkommensquelle löschen möchten?',
+      [
+        {
+          text: 'Abbrechen',
+          style: 'cancel',
+        },
+        {
+          text: 'Löschen',
+          style: 'destructive',
+          onPress: () => {
+            AutomationService.removeIncomeSource(id);
+            loadIncomeSources();
+          },
+        },
+      ],
+    );
+  };
+
   const optimizeNow = () => {
     AutomationService.optimizeIncome();
     loadIncomeSources();
     Alert.alert(
       'Optimierung abgeschlossen',
-      'Ihre Einkommensquellen wurden optimiert'
+      'Ihre Einkommensquellen wurden optimiert',
     );
   };
 
@@ -94,9 +119,7 @@ const IncomeOptimizationScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.optimizeButton}
             onPress={optimizeNow}>
-            <Text style={styles.optimizeButtonText}>
-              Jetzt optimieren
-            </Text>
+            <Text style={styles.optimizeButtonText}>Jetzt optimieren</Text>
           </TouchableOpacity>
 
           <View style={styles.section}>
@@ -118,7 +141,7 @@ const IncomeOptimizationScreen = ({navigation}) => {
                   style={styles.input}
                   placeholder="z.B. Affiliate Marketing"
                   value={newSource.name}
-                  onChangeText={(text) =>
+                  onChangeText={text =>
                     setNewSource({...newSource, name: text})
                   }
                 />
@@ -126,7 +149,7 @@ const IncomeOptimizationScreen = ({navigation}) => {
                 <Text style={styles.formLabel}>Typ</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                   <View style={styles.typeContainer}>
-                    {INCOME_SOURCE_TYPES.map((type) => (
+                    {INCOME_SOURCE_TYPES.map(type => (
                       <TouchableOpacity
                         key={type}
                         style={[
@@ -155,7 +178,7 @@ const IncomeOptimizationScreen = ({navigation}) => {
                   placeholder="0.00"
                   keyboardType="decimal-pad"
                   value={newSource.amount}
-                  onChangeText={(text) =>
+                  onChangeText={text =>
                     setNewSource({...newSource, amount: text})
                   }
                 />
@@ -166,7 +189,7 @@ const IncomeOptimizationScreen = ({navigation}) => {
                   placeholder="0.00"
                   keyboardType="decimal-pad"
                   value={newSource.investment}
-                  onChangeText={(text) =>
+                  onChangeText={text =>
                     setNewSource({...newSource, investment: text})
                   }
                 />
@@ -193,8 +216,12 @@ const IncomeOptimizationScreen = ({navigation}) => {
                   </Text>
                 </View>
               ) : (
-                incomeSources.map((source) => (
-                  <IncomeSourceItem key={source.id} source={source} />
+                incomeSources.map(source => (
+                  <IncomeSourceItem
+                    key={source.id}
+                    source={source}
+                    onDelete={deleteIncomeSource}
+                  />
                 ))
               )}
             </View>
@@ -205,13 +232,20 @@ const IncomeOptimizationScreen = ({navigation}) => {
   );
 };
 
-const IncomeSourceItem = ({source}) => (
+const IncomeSourceItem = ({source, onDelete}) => (
   <View style={styles.sourceItem}>
     <View style={styles.sourceHeader}>
       <Text style={styles.sourceName}>{source.name}</Text>
-      <Text style={styles.sourceAmount}>
-        {formatCurrency(source.amount)}
-      </Text>
+      <View style={styles.sourceActions}>
+        <Text style={styles.sourceAmount}>
+          {formatCurrency(source.amount)}
+        </Text>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={() => onDelete(source.id)}>
+          <Text style={styles.deleteButtonText}>🗑</Text>
+        </TouchableOpacity>
+      </View>
     </View>
     <View style={styles.sourceDetails}>
       <Text style={styles.sourceType}>{source.type}</Text>
@@ -410,6 +444,10 @@ const styles = StyleSheet.create({
     color: '#333',
     flex: 1,
   },
+  sourceActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   sourceAmount: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -434,6 +472,13 @@ const styles = StyleSheet.create({
   },
   profitabilityLow: {
     color: '#FF5722',
+  },
+  deleteButton: {
+    marginLeft: 10,
+    padding: 5,
+  },
+  deleteButtonText: {
+    fontSize: 18,
   },
   emptyState: {
     alignItems: 'center',
